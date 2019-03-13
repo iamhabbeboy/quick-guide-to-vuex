@@ -5,6 +5,7 @@
 		  <h3> {{blogs.title}} </h3>
       <p>{{blogs.body}}</p>
     </div>
+  
   </div>
 </template>
 

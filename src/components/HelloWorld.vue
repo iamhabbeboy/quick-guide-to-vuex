@@ -3,9 +3,10 @@
     <h1>{{ msg }}</h1>
     <h5>(credit: https://jsonplaceholder.typicode.com)</h5>
     <h3>Blog Posts</h3>
+    <div v-if="isLoading"><i>Please wait...</i></div>
     <ul>
       <li v-for="(value, index) of blogs" style="display: block" :key="index">
-        <router-link :to="`/view/${value.id}`" rel="noopener"><b>{{value.title}}</b></router-link>
+        <router-link :to="{ name: 'Post', params: {id: value.id }}"><b>{{value.title}}</b></router-link>
       </li>
 
     </ul>
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+/*eslint-disable */
 import { mapState } from 'vuex'
 
 export default {
@@ -20,8 +22,18 @@ export default {
   props: {
     msg: String
   },
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   async mounted () {
-    this.$store.dispatch('loadblog')
+    if (this.$store.state.blogs.length === 0) {
+      this.isLoading = true
+    }
+    this.$store.dispatch('loadblog').then(resp => {
+      this.isLoading = false
+    })
   },
   computed: {
     ...mapState(['blogs'])
