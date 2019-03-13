@@ -1,8 +1,8 @@
 # Quick guide to Vuex
 
 
+## About
 This app uses _https://jsonplaceholder.typicode.com_ for its API
-
 
 ## Project setup
 ```
